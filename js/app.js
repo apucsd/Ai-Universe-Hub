@@ -22,8 +22,8 @@ const displayData = (data,limit) => {
     }
     const CardContainer = document.getElementById('card-container')
     data.forEach(singleData => {
-        console.log(singleData)
-        const {image,features,name,published_in} = singleData;
+        // console.log(singleData)
+        const {image,features,name,published_in,id} = singleData;
         const cardDiv = document.createElement('div');
         cardDiv.classList.add('col');
         cardDiv.innerHTML =`
@@ -46,7 +46,7 @@ const displayData = (data,limit) => {
                 
                    </div>
                    <div style="cursor:pointer">
-                   <i class="fa-solid text-primary fa-arrow-right"></i>
+                   <i data-bs-toggle="modal" data-bs-target="#modalDetails" onclick="getSingleDataByID('${id}')" class="fa-solid text-primary fa-arrow-right"></i>
                    </div>
                   
                   
@@ -65,5 +65,17 @@ const showMoreBtn = () =>{
     displayData(allData)
     
    
+}
+
+const getSingleDataByID = async (id) =>{
+    const URL = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
+    const res = await fetch(URL);
+    const data = await res.json();
+    showDataInModal(data.data)
+   
+}
+const showDataInModal =(data) =>{
+    console.log(data);
+    const modalContainer = document.getElementById('modal-container');
 }
 
