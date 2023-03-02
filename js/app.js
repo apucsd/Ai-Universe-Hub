@@ -20,7 +20,8 @@ const displayData = (data,limit) => {
     else{
         showBtn.classList.add('d-none')
     }
-    const CardContainer = document.getElementById('card-container')
+    const CardContainer = document.getElementById('card-container');
+    CardContainer.innerHTML = '';
     data.forEach(singleData => {
         // console.log(singleData)
         const {image,features,name,published_in,id} = singleData;
@@ -76,6 +77,69 @@ const getSingleDataByID = async (id) =>{
 }
 const showDataInModal =(data) =>{
     console.log(data);
+    const {description,image_link,input_output_examples,features,integrations,pricing} =data;
+    // features name
+    const {1:feature_name1,2:feature_name2,3:feature_name3} = features;
+    // integrations
+    const [integrations1,integrations2,integrations3] =integrations;
+    // pricing
+   const BasePrice = pricing.filter((basePrice) => basePrice.plan === 'Basic');
+   console.log(BasePrice);
+   const proPrice = pricing.filter(proPrice => proPrice.plan == 'Pro')
+   const enterPrice = pricing.filter(proPrice => proPrice.plan == 'Enterprise')
+   const  {0:basicPlan} = BasePrice;
+   const {0:proPlan} =proPrice;
+   const {0:enterPlan} =enterPrice;
+   console.log(basicPlan);
     const modalContainer = document.getElementById('modal-container');
+    modalContainer.innerHTML = `
+    
+    <div class="row p-5 gap-4">
+    <div style="background-color: rgb(253, 231, 231);" class="col p-3 rounded">
+        <h5 class="my-3">${description}</h5>
+        <div class="d-flex gap-2 justify-content-center text-center rounded my-4">
+            <div class="bg-white text-primary rounded fw-bold p-2">
+            ${basicPlan?.plan ? basicPlan?.plan : "Free of Coast"} <br> ${basicPlan?.price}
+            </div>
+            <div class="bg-white text-bg-warning rounded fw-bold p-2">
+            ${proPlan?.plan ? proPlan?.plan : "Free of Coast"} <br> ${proPlan?.price}
+            </div>
+            <div class="bg-white text-danger rounded fw-bold p-2">
+            ${enterPlan?.plan ? enterPlan?.plan : "Free of Coast"} <br> ${enterPlan?.price}
+            </div>
+
+        </div>
+        <div class="my-3 row">
+            <div class="col">
+                <h5>Features</h5>
+                <ul class="text-secondary">
+                    <li>${feature_name1.feature_name}</li>
+                    <li>${feature_name2.feature_name}</li>
+                    <li>${feature_name3.feature_name}</li>
+                </ul>
+
+            </div>
+            <div class="col">
+                <h5>Integrations</h5>
+                <ul class="text-secondary">
+                    <li>${integrations1 ? integrations1 :"No Data Found"}</li>
+                    <li>${integrations2 ? integrations2 : "Not Data Found"}</li>
+                    <li>${integrations3 ? integrations3 : "Not Data Found"}</li>
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col p-5 text-center p-3 border border-1 rounded border-secondary">
+        <img style="width:100%; height:60%;" class=""
+            src="${image_link[0]}" alt="">
+        <h5 class="my-2">${input_output_examples[0].input}</h5>
+        <p class="text-secondary">I'm doing well, thank you for asking. How can I assist you
+            today?</p>
+    </div>
+</div>
+
+    `;
 }
 
