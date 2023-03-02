@@ -32,7 +32,7 @@ const displayData = (data,limit) => {
                
                 <h5 class="card-title mt-2">Feature</h5>
                     
-                  <ol class="mt-2 text-secondary">
+                  <ol class="mt-2 p-3 text-secondary">
                     <li>${features[0]}</li>
                     <li>${features[1]}</li>
                     <li>${features[2]}</li>
