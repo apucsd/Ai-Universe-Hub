@@ -1,16 +1,18 @@
+let allData = [];
 const fetchData = async () =>{
     const URL = `https://openapi.programming-hero.com/api/ai/tools`;
     const res = await fetch(URL);
     const data = await res.json();
-    displayData(data.data.tools)
+    displayData(data.data.tools,6)
+    allData= data.data.tools;
 
 
 }
-const displayData = (data) => {
+const displayData = (data,limit) => {
     // console.log(data)
     const showBtn = document.getElementById('show-more-btn');
   
-    if(data.length > 6){
+    if(limit && data.length > 6){
         data =  data.slice(0,6);
         showBtn.classList.remove('d-none');
        
@@ -57,5 +59,11 @@ const displayData = (data) => {
         CardContainer.appendChild(cardDiv);
 
     })
+}
+
+const showMoreBtn = () =>{
+    displayData(allData)
+    
+   
 }
 
