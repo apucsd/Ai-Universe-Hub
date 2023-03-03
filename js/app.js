@@ -7,7 +7,7 @@ const fetchData = async () => {
   allData = data.data.tools;
 };
 const displayData = (data, limit) => {
-  // console.log(data)
+  console.log(data)
   const showBtn = document.getElementById("show-more-btn");
 
   if (limit && data.length > 6) {
@@ -70,7 +70,7 @@ const getSingleDataByID = async (id) => {
   showDataInModal(data.data);
 };
 const showDataInModal = (data) => {
-  // console.log(data);
+  console.log(data);
 
   //  destructure data Start
 
@@ -83,22 +83,22 @@ const showDataInModal = (data) => {
     pricing,
     accuracy,
   } = data;
-  // console.log(accuracy);
+  console.log(pricing);
   // features name
   const { 1: feature_name1, 2: feature_name2, 3: feature_name3 } = features;
   // integrations
-  const [integrations1, integrations2, integrations3] = integrations;
+//   const [integrations1, integrations2, integrations3] = integrations;
   // pricing
-  const BasePrice = pricing.filter((basePrice) => basePrice.plan === "Basic");
-  //    console.log(BasePrice);
-  const proPrice = pricing.filter((proPrice) => proPrice.plan == "Pro");
-  const enterPrice = pricing.filter(
-    (proPrice) => proPrice.plan == "Enterprise"
-  );
-  const { 0: basicPlan } = BasePrice;
-  const { 0: proPlan } = proPrice;
-  const { 0: enterPlan } = enterPrice;
-  //    console.log(basicPlan);
+//   const BasePrice = pricing.filter((basePrice) => basePrice.plan === "Basic");
+//   //    console.log(BasePrice);
+//   const proPrice = pricing.filter((proPrice) => proPrice.plan == "Pro");
+//   const enterPrice = pricing.filter(
+//     (proPrice) => proPrice.plan == "Enterprise"
+//   );
+//   const { 0: basicPlan } = BasePrice;
+//   const { 0: proPlan } = proPrice;
+//   const { 0: enterPlan } = enterPrice;
+//      console.log(basicPlan,proPlan,enterPlan);
 
   const { score } = accuracy;
 
@@ -106,6 +106,7 @@ const showDataInModal = (data) => {
 
   //  destructure data end
   const modalContainer = document.getElementById("modal-container");
+  modalContainer.innerHTML ='';
   modalContainer.innerHTML = `
     
     <div class="row p-5 gap-4">
@@ -113,19 +114,15 @@ const showDataInModal = (data) => {
         <h5 class="my-3">${description}</h5>
         <div class="d-md-flex flex-md-row gap-2 justify-content-center text-center rounded my-4">
             <div class="bg-white text-primary rounded fw-bold p-2  shadow-lg">
-            ${basicPlan?.price ? basicPlan?.price : "Free of Coast"} <br> ${
-    basicPlan?.plan ? basicPlan?.plan : "Basic"
+            ${pricing? pricing[0].price : "Free of Coast"} <br>   ${pricing? pricing[0].plan : "Basic"
   }
             </div>
             <div class="bg-white text-bg-warning rounded fw-bold p-2 shadow-lg">
-            ${proPlan?.price ? proPlan?.price : "Free of Coast"} <br> ${
-    proPlan?.plan ? proPlan?.plan : "Pro"
+            ${pricing? pricing[1].price : "Free of Coast"} <br>  ${pricing? pricing[1].plan : "Pro"
   }
             </div>
             <div class="bg-white text-danger rounded fw-bold p-2 shadow-lg">
-            ${enterPlan?.price ? enterPlan?.price : "Free of Coast"} <br> ${
-    enterPlan?.plan ? enterPlan?.plan : "Enterprise"
-  }
+            ${pricing? pricing[2].price: "Free of Coast"} <br>  ${pricing? pricing[2].plan: "Enterprise"} 
             </div>
 
         </div>
@@ -142,9 +139,9 @@ const showDataInModal = (data) => {
             <div class="col">
                 <h5>Integrations</h5>
                 <ul class="text-secondary">
-                    <li  id="integrations1">${integrations1}</li>
-                    <li style="visibility: hidden;" id="integrations2">${integrations2}</li>
-                    <li style="visibility: hidden;" id="integrations3">${integrations3}</li>
+                    <li  id="integrations1">${integrations?.[0] ? integrations?.[0]:"No Data Found"}</li>
+                    <li style="visibility: hidden;" id="integrations2">${integrations?.[1]?integrations?.[1] : "No Data Found"}</li>
+                    <li style="visibility: hidden;" id="integrations3">${integrations?.[2]?integrations?.[2] : "No Data Found"}</li>
                 </ul>
 
             </div>
@@ -159,17 +156,17 @@ const showDataInModal = (data) => {
     }%
         accuracy</button>
    </div>
-        <h5 class="my-2">${input_output_examples[0].input}</h5>
-        <p class="text-secondary">${input_output_examples[0].output}</p>
+        <h5 class="my-2">${input_output_examples?input_output_examples[0]?.input:"Can you give any example?"}</h5>
+        <p class="text-secondary">${input_output_examples?input_output_examples[0]?.output:"No! Not Yet! Take a break!!!"}</p>
     </div>
 </div>
 
     `;
   // conditional rendering start
-  if (integrations2) {
+  if ( integrations?.[2]) {
     document.getElementById("integrations2").style.visibility = "visible";
   }
-  if (integrations3) {
+  if ( integrations?.[3]) {
     document.getElementById("integrations3").style.visibility = "visible";
   }
 
