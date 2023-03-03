@@ -1,11 +1,12 @@
 let allData = [];
+
+
 const fetchData = async () =>{
     const URL = `https://openapi.programming-hero.com/api/ai/tools`;
     const res = await fetch(URL);
     const data = await res.json();
     displayData(data.data.tools,6)
     allData= data.data.tools;
-
 
 }
 const displayData = (data,limit) => {
@@ -58,8 +59,10 @@ const displayData = (data,limit) => {
         
         `;
         CardContainer.appendChild(cardDiv);
+        spinnerShow(false)
 
     })
+
 }
 
 const showMoreBtn = () =>{
@@ -141,5 +144,16 @@ const showDataInModal =(data) =>{
 </div>
 
     `;
+}
+// spinner functions
+function spinnerShow(isShow){
+    const spinner = document.getElementById('spinner');
+    if(isShow){
+       
+        spinner.classList.remove('d-none');
+    }
+    else{
+        spinner.classList.add('d-none');
+    }
 }
 
