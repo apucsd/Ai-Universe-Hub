@@ -97,14 +97,14 @@ const showDataInModal =(data) =>{
     <div class="row p-5 gap-4">
     <div style="background-color: rgb(253, 231, 231);" class="col p-3 rounded">
         <h5 class="my-3">${description}</h5>
-        <div class="d-flex gap-2 justify-content-center text-center rounded my-4">
-            <div class="bg-white text-primary rounded fw-bold p-2">
+        <div class="d-md-flex flex-md-row gap-5 justify-content-center text-center rounded my-4">
+            <div class="bg-white text-primary rounded fw-bold p-2  shadow-lg">
             ${basicPlan?.plan ? basicPlan?.plan : "Free of Coast"} <br> ${basicPlan?.price}
             </div>
-            <div class="bg-white text-bg-warning rounded fw-bold p-2">
+            <div class="bg-white text-bg-warning rounded fw-bold p-2 shadow-lg">
             ${proPlan?.plan ? proPlan?.plan : "Free of Coast"} <br> ${proPlan?.price}
             </div>
-            <div class="bg-white text-danger rounded fw-bold p-2">
+            <div class="bg-white text-danger rounded fw-bold p-2 shadow-lg">
             ${enterPlan?.plan ? enterPlan?.plan : "Free of Coast"} <br> ${enterPlan?.price}
             </div>
 
@@ -132,7 +132,7 @@ const showDataInModal =(data) =>{
         </div>
     </div>
     <div class="col p-5 text-center p-3 border border-1 rounded border-secondary">
-        <img style="width:100%; height:60%;" class=""
+        <img style="width:100%; height:55%;" class=""
             src="${image_link[0]}" alt="">
         <h5 class="my-2">${input_output_examples[0].input}</h5>
         <p class="text-secondary">I'm doing well, thank you for asking. How can I assist you
