@@ -1,5 +1,4 @@
 let allData = [];
-
 const fetchData = async () => {
   const URL = `https://openapi.programming-hero.com/api/ai/tools`;
   const res = await fetch(URL);
@@ -22,6 +21,7 @@ const displayData = (data, limit) => {
   data.forEach((singleData) => {
     // console.log(singleData)
     const { image, features, name, published_in, id } = singleData;
+
     const cardDiv = document.createElement("div");
     cardDiv.classList.add("col");
     cardDiv.innerHTML = `
@@ -142,14 +142,9 @@ const showDataInModal = (data) => {
             <div class="col">
                 <h5>Integrations</h5>
                 <ul class="text-secondary">
-                    <li  id="integrations1">${
-                      integrations1
-                    }</li>
-                    <li style="visibility: hidden;" id="integrations2">${
-                      integrations2}</li>
-                    <li style="visibility: hidden;" id="integrations3">${
-                      integrations3
-                    }</li>
+                    <li  id="integrations1">${integrations1}</li>
+                    <li style="visibility: hidden;" id="integrations2">${integrations2}</li>
+                    <li style="visibility: hidden;" id="integrations3">${integrations3}</li>
                 </ul>
 
             </div>
@@ -170,17 +165,30 @@ const showDataInModal = (data) => {
 </div>
 
     `;
-
-    if(integrations2){
-        document.getElementById('integrations2').style.visibility = 'visible';
-    }
-    if(integrations3){
-        document.getElementById('integrations3').style.visibility = 'visible';
-    }
+  // conditional rendering start
+  if (integrations2) {
+    document.getElementById("integrations2").style.visibility = "visible";
+  }
+  if (integrations3) {
+    document.getElementById("integrations3").style.visibility = "visible";
+  }
 
   if (accuracyPercent) {
     document.getElementById("accuracyPercentBtn").style.display = "block";
   } else {
     document.getElementById("accuracyPercentBtn").style.display = "none";
   }
+  // conditional rendering start
 };
+
+const sortByDate = () => {
+  let allDate = [];
+  console.log(allData)
+  allData.sort((a, b) =>{
+    // console.log(a.published_in)
+    return new Date(a.published_in) - new Date(b.published_in);
+  });
+  displayData(allData,6)
+
+
+}
