@@ -79,43 +79,62 @@ const getSingleDataByID = async (id) =>{
    
 }
 const showDataInModal =(data) =>{
-    console.log(data);
-    const {description,image_link,input_output_examples,features,integrations,pricing} =data;
+    // console.log(data);
+
+     //  destructure data Start
+
+
+
+    const {description,image_link,input_output_examples,features,integrations,pricing,accuracy} =data;
+    // console.log(accuracy);
     // features name
     const {1:feature_name1,2:feature_name2,3:feature_name3} = features;
     // integrations
     const [integrations1,integrations2,integrations3] =integrations;
     // pricing
    const BasePrice = pricing.filter((basePrice) => basePrice.plan === 'Basic');
-   console.log(BasePrice);
+//    console.log(BasePrice);
    const proPrice = pricing.filter(proPrice => proPrice.plan == 'Pro')
    const enterPrice = pricing.filter(proPrice => proPrice.plan == 'Enterprise')
    const  {0:basicPlan} = BasePrice;
    const {0:proPlan} =proPrice;
    const {0:enterPlan} =enterPrice;
-   console.log(basicPlan);
+//    console.log(basicPlan);
+
+
+
+   const {score} = accuracy;
+
+   const accuracyPercent = score * 100;
+ 
+ 
+ 
+
+
+
+//  destructure data end
     const modalContainer = document.getElementById('modal-container');
     modalContainer.innerHTML = `
     
     <div class="row p-5 gap-4">
     <div style="background-color: rgb(253, 231, 231);" class="col p-3 rounded">
         <h5 class="my-3">${description}</h5>
-        <div class="d-md-flex flex-md-row gap-5 justify-content-center text-center rounded my-4">
+        <div class="d-md-flex flex-md-row gap-2 justify-content-center text-center rounded my-4">
             <div class="bg-white text-primary rounded fw-bold p-2  shadow-lg">
-            ${basicPlan?.plan ? basicPlan?.plan : "Free of Coast"} <br> ${basicPlan?.price}
+            ${basicPlan?.price ? basicPlan?.price : "Free of Coast"} <br> ${basicPlan?.plan ? basicPlan?.plan:"Basic"}
             </div>
             <div class="bg-white text-bg-warning rounded fw-bold p-2 shadow-lg">
-            ${proPlan?.plan ? proPlan?.plan : "Free of Coast"} <br> ${proPlan?.price}
+            ${proPlan?.price ? proPlan?.price : "Free of Coast"} <br> ${proPlan?.plan?proPlan?.plan:"Pro"}
             </div>
             <div class="bg-white text-danger rounded fw-bold p-2 shadow-lg">
-            ${enterPlan?.plan ? enterPlan?.plan : "Free of Coast"} <br> ${enterPlan?.price}
+            ${enterPlan?.price ? enterPlan?.price : "Free of Coast"} <br> ${enterPlan?.plan?enterPlan?.plan:"Enterprise"}
             </div>
 
         </div>
         <div class="my-3 row">
             <div class="col">
                 <h5>Features</h5>
-                <ul class="text-secondary">
+                <ul id="featuredUl" class="text-secondary">
                     <li>${feature_name1.feature_name}</li>
                     <li>${feature_name2.feature_name}</li>
                     <li>${feature_name3.feature_name}</li>
@@ -135,15 +154,23 @@ const showDataInModal =(data) =>{
         </div>
     </div>
     <div class="col p-5 text-center p-3 border border-1 rounded border-secondary">
-        <img style="width:100%; height:55%;" class=""
-            src="${image_link[0]}" alt="">
+    <div class="position-relative">
+    <img style="width:100%; height:80%;" class="" src="${image_link[0]}" alt="">
+    <button style="top:0;right:0;" id="accuracyPercentBtn"  type="button" class=" btn btn-danger position-absolute mt-2">${score?accuracyPercent:''}%
+        accuracy</button>
+   </div>
         <h5 class="my-2">${input_output_examples[0].input}</h5>
-        <p class="text-secondary">I'm doing well, thank you for asking. How can I assist you
-            today?</p>
+        <p class="text-secondary">${input_output_examples[0].output}</p>
     </div>
 </div>
 
     `;
+      if (accuracyPercent) {
+    document.getElementById("accuracyPercentBtn").style.display = "block";
+  } else {
+    document.getElementById("accuracyPercentBtn").style.display = "none";
+  }
+  
 }
 // spinner functions
 function spinnerShow(isShow){
