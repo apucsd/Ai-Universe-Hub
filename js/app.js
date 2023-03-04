@@ -8,7 +8,7 @@ const fetchData = async () => {
   allData = data.data.tools;
 };
 const displayData = (data, limit) => {
-  console.log(data)
+  // console.log(data)
   const showBtn = document.getElementById("show-more-btn");
 // condition for show only 6 data
   if (limit && data.length > 6) {
@@ -72,7 +72,7 @@ const getSingleDataByID = async (id) => {
   showDataInModal(data.data);
 };
 const showDataInModal = (data) => {
-  console.log(data);
+  // console.log(data);
 
   //  destructure data Start
 
@@ -170,7 +170,7 @@ const showDataInModal = (data) => {
 // short data by date function
 const sortByDate = () => {
   let allDate = [];
-  console.log(allData)
+  // console.log(allData)
   allData.sort((a, b) =>{
     // console.log(a.published_in)
     return new Date(a.published_in) - new Date(b.published_in);
