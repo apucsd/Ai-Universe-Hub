@@ -1,4 +1,5 @@
 let allData = [];
+// get all data
 const fetchData = async () => {
   const URL = `https://openapi.programming-hero.com/api/ai/tools`;
   const res = await fetch(URL);
@@ -9,7 +10,7 @@ const fetchData = async () => {
 const displayData = (data, limit) => {
   console.log(data)
   const showBtn = document.getElementById("show-more-btn");
-
+// condition for show only 6 data
   if (limit && data.length > 6) {
     data = data.slice(0, 6);
     showBtn.classList.remove("d-none");
@@ -20,6 +21,7 @@ const displayData = (data, limit) => {
   CardContainer.innerHTML = "";
   data.forEach((singleData) => {
     // console.log(singleData)
+    // destructure singleData
     const { image, features, name, published_in, id } = singleData;
 
     const cardDiv = document.createElement("div");
@@ -83,22 +85,10 @@ const showDataInModal = (data) => {
     pricing,
     accuracy,
   } = data;
-  console.log(pricing);
-  // features name
+  // console.log(pricing);
+  // features name destructuring
   const { 1: feature_name1, 2: feature_name2, 3: feature_name3 } = features;
-  // integrations
-//   const [integrations1, integrations2, integrations3] = integrations;
-  // pricing
-//   const BasePrice = pricing.filter((basePrice) => basePrice.plan === "Basic");
-//   //    console.log(BasePrice);
-//   const proPrice = pricing.filter((proPrice) => proPrice.plan == "Pro");
-//   const enterPrice = pricing.filter(
-//     (proPrice) => proPrice.plan == "Enterprise"
-//   );
-//   const { 0: basicPlan } = BasePrice;
-//   const { 0: proPlan } = proPrice;
-//   const { 0: enterPlan } = enterPrice;
-//      console.log(basicPlan,proPlan,enterPlan);
+
 
   const { score } = accuracy;
 
@@ -177,7 +167,7 @@ const showDataInModal = (data) => {
   }
   // conditional rendering start
 };
-
+// short data by date function
 const sortByDate = () => {
   let allDate = [];
   console.log(allData)
@@ -189,3 +179,16 @@ const sortByDate = () => {
 
 
 }
+
+// spinner functions
+function spinnerShow(isShow){
+  const spinner = document.getElementById('spinner');
+  if(isShow){
+     
+      spinner.classList.remove('d-none');
+  }
+  else{
+      spinner.classList.add('d-none');
+  }
+}
+
